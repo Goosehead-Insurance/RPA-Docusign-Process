@@ -1,0 +1,341 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:usam="clr-namespace:UiPath.Salesforce.Activities.Models;assembly=UiPath.Salesforce.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_TransactionNumber" Type="InArgument(x:Int32)" />
+    <x:Property Name="io_FirstLookup" Type="InOutArgument(x:Boolean)" />
+    <x:Property Name="in_consKey" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="in_consSecret" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="in_SecToken" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="in_SFEnvt" Type="InArgument(x:String)" />
+    <x:Property Name="io_BoolFirstRun" Type="InOutArgument(x:Boolean)" />
+    <x:Property Name="io_DictCarrierDetails" Type="InOutArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="io_StrExceptionCode" Type="InOutArgument(x:String)" />
+    <x:Property Name="in_DictNonCarrierCredentials" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_TransactionData" Type="InArgument(scg:List(x:String))" />
+    <x:Property Name="io_dtCompleteTxnDataInfo" Type="InOutArgument(sd:DataTable)" />
+  </x:Members>
+  <this:Process.in_consKey>
+    <InArgument x:TypeArguments="ss:SecureString" />
+  </this:Process.in_consKey>
+  <this:Process.in_consSecret>
+    <InArgument x:TypeArguments="ss:SecureString" />
+  </this:Process.in_consSecret>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>921.333333333333,1807.33333333333</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="20">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Salesforce.Activities.Models</x:String>
+      <x:String>UiPath.Salesforce.ConnectionService</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Net</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="62">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.CV</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>UiPath.Salesforce.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Salesforce</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <sap:WorkflowViewStateService.ViewState>
+    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+      <x:Boolean x:Key="ShouldExpandAll">True</x:Boolean>
+    </scg:Dictionary>
+  </sap:WorkflowViewStateService.ViewState>
+  <Sequence sap2010:Annotation.AnnotationText="Tasks to be executed: &#xA;1) Search in the docusign website using the full name of the service agent from the sf report" DisplayName="Process" sap:VirtualizedContainerService.HintSize="580.666666666667,1742.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="SFOpptyID" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtCarrierPolicy" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="dctMapPolicyInfo" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtSFpolicy" />
+      <Variable x:TypeArguments="usam:SalesforceStatus" Name="sfUpdateSuccessful" />
+      <Variable x:TypeArguments="x:String" Name="SFMtgNameAddress" />
+      <Variable x:TypeArguments="x:String" Name="SFExpirationDate" />
+      <Variable x:TypeArguments="x:String" Name="SFEffectiveDate" />
+      <Variable x:TypeArguments="x:String" Name="SFStatus" />
+      <Variable x:TypeArguments="x:String" Name="SFCancelDate" />
+      <Variable x:TypeArguments="x:String" Name="SFResidenceAddress" />
+      <Variable x:TypeArguments="x:String" Name="ExceptionMsg" />
+      <Variable x:TypeArguments="x:String" Name="SFInsuredName" />
+      <Variable x:TypeArguments="x:String" Name="SFZipcode" />
+      <Variable x:TypeArguments="x:String" Name="strSFChannel" />
+      <Variable x:TypeArguments="x:String" Name="strCarrierURL" />
+      <Variable x:TypeArguments="x:String" Name="strCarrierName" />
+      <Variable x:TypeArguments="x:String" Name="strFormattedCarrierName" />
+      <Variable x:TypeArguments="x:Boolean" Name="boolFoundAlready" />
+      <Variable x:TypeArguments="x:String" Name="SFCurrentTermPremium" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtCarrierDriver" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtCarrierVehicle" />
+      <Variable x:TypeArguments="x:String" Name="strSFCarrierLogin" />
+      <Variable x:TypeArguments="x:String" Name="strSFLineOfBusiness" />
+      <Variable x:TypeArguments="x:String" Name="strSfState" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="dctMapDriverInfo" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="dctMapVehicleInfo" />
+      <Variable x:TypeArguments="x:Boolean" Name="Agenterror" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtSFdrivers" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtSFvehicles" />
+      <Variable x:TypeArguments="s:DateTime" Name="DateStart" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="538.666666666667,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Starting Process&quot;]" />
+    <Assign DisplayName="Assign initial ExceptionMsg as Empty" sap:VirtualizedContainerService.HintSize="538.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[ExceptionMsg]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[String.Empty]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign sap:VirtualizedContainerService.HintSize="538.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_34">
+      <Assign.To>
+        <OutArgument x:TypeArguments="s:DateTime">[DateStart]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="s:DateTime">[Now]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="538.666666666667,1132" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <TryCatch.Try>
+        <Sequence sap:VirtualizedContainerService.HintSize="500,530.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="458,284.666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_7">
+            <ui:CommentOut.Body>
+              <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="421.333333333333,206" sap2010:WorkflowViewState.IdRef="Sequence_36">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Sharing Envelopes - DocuSign - RPA launch and login.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="GitHub\Sharing Envelopes - DocuSign - RPA\Sharing Envelopes - DocuSign - RPA launch and login.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                  </ui:InvokeWorkflowFile.Arguments>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:InvokeWorkflowFile>
+              </Sequence>
+            </ui:CommentOut.Body>
+          </ui:CommentOut>
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Sharing Envelopes - DocuSign - RPA envelope sharing process.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="458,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_60" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="GitHub\Sharing Envelopes - DocuSign - RPA\Sharing Envelopes - DocuSign - RPA envelope sharing process.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="fullname">[in_TransactionItem]</InArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="504.666666666667,140" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="SystemException" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="SystemException Catch" sap:VirtualizedContainerService.HintSize="200,69.3333333333333" sap2010:WorkflowViewState.IdRef="Sequence_6">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="443.333333333333,284.666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_8">
+                <ui:CommentOut.Body>
+                  <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="406.666666666667,206" sap2010:WorkflowViewState.IdRef="Sequence_37">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke SendRPAErrorFieldstoSF workflow, for SystemException" sap:VirtualizedContainerService.HintSize="364.666666666667,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_24" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Home Policy Tasks\SendRPAErrorFieldsToSF.xaml">
+                      <ui:InvokeWorkflowFile.Arguments>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_SFEnvt">[in_SFEnvt]</InArgument>
+                        <InArgument x:TypeArguments="ss:SecureString" x:Key="in_consKey">[in_consKey]</InArgument>
+                        <InArgument x:TypeArguments="ss:SecureString" x:Key="in_consSecret">[in_consSecret]</InArgument>
+                        <InArgument x:TypeArguments="ss:SecureString" x:Key="in_SecToken">[in_SecToken]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="SFOpptyID">[SFOpptyID]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_ExceptionType">System</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_ExceptionMsg">[SystemException.Message]</InArgument>
+                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Credentials">[in_DictNonCarrierCredentials]</InArgument>
+                        <InArgument x:TypeArguments="s:DateTime" x:Key="in_DatePolicyStart">[DateStart]</InArgument>
+                      </ui:InvokeWorkflowFile.Arguments>
+                    </ui:InvokeWorkflowFile>
+                  </Sequence>
+                </ui:CommentOut.Body>
+              </ui:CommentOut>
+              <Assign sap:VirtualizedContainerService.HintSize="443.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_30">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[io_StrExceptionCode]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">["SystemException: "+SystemException.Message]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="443.333333333333,52.6666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_5">
+                <ui:CommentOut.Body>
+                  <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="242,114" sap2010:WorkflowViewState.IdRef="Sequence_34">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Rethrow sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Rethrow_1" />
+                  </Sequence>
+                </ui:CommentOut.Body>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:CommentOut>
+            </Sequence>
+          </ActivityAction>
+        </Catch>
+        <Catch x:TypeArguments="ui:BusinessRuleException" sap:VirtualizedContainerService.HintSize="504.666666666667,140" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ActivityAction x:TypeArguments="ui:BusinessRuleException">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="ui:BusinessRuleException" Name="BusinessException" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="BusinessException Catch" sap:VirtualizedContainerService.HintSize="485.333333333333,571.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_7">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="443.333333333333,284.666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_9">
+                <ui:CommentOut.Body>
+                  <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="406.666666666667,206" sap2010:WorkflowViewState.IdRef="Sequence_38">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke SendRPAErrorFieldstoSF workflow, for BusinessException" sap:VirtualizedContainerService.HintSize="364.666666666667,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_25" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Home Policy Tasks\SendRPAErrorFieldsToSF.xaml">
+                      <ui:InvokeWorkflowFile.Arguments>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_SFEnvt">[in_SFEnvt]</InArgument>
+                        <InArgument x:TypeArguments="ss:SecureString" x:Key="in_consKey">[in_consKey]</InArgument>
+                        <InArgument x:TypeArguments="ss:SecureString" x:Key="in_consSecret">[in_consSecret]</InArgument>
+                        <InArgument x:TypeArguments="ss:SecureString" x:Key="in_SecToken">[in_SecToken]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="SFOpptyID">[SFOpptyID]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_ExceptionType">Business</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_ExceptionMsg">[BusinessException.Message]</InArgument>
+                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Credentials">[in_DictNonCarrierCredentials]</InArgument>
+                        <InArgument x:TypeArguments="s:DateTime" x:Key="in_DatePolicyStart">[DateStart]</InArgument>
+                      </ui:InvokeWorkflowFile.Arguments>
+                    </ui:InvokeWorkflowFile>
+                  </Sequence>
+                </ui:CommentOut.Body>
+              </ui:CommentOut>
+              <Assign sap:VirtualizedContainerService.HintSize="443.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_31">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[io_StrExceptionCode]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">["BusinessException: "+BusinessException.Message]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="443.333333333333,52.6666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_6">
+                <ui:CommentOut.Body>
+                  <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="242,114" sap2010:WorkflowViewState.IdRef="Sequence_35">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Rethrow sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Rethrow_2" />
+                  </Sequence>
+                </ui:CommentOut.Body>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:CommentOut>
+            </Sequence>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+    </TryCatch>
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="538.666666666667,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Ending Process&quot;]" />
+  </Sequence>
+</Activity>

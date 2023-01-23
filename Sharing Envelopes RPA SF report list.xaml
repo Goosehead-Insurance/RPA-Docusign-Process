@@ -1,0 +1,181 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Sharing_Envelopes_RPA_SF_report_list" this:Sharing_Envelopes_RPA_SF_report_list.in_SalesforceServer="Test" this:Sharing_Envelopes_RPA_SF_report_list.in_SFrptID="00O54000002CPSWEA4" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:usa="clr-namespace:UiPath.Salesforce.Activities;assembly=UiPath.Salesforce.Activities" xmlns:usam="clr-namespace:UiPath.Salesforce.Activities.Models;assembly=UiPath.Salesforce.Activities" xmlns:usc="clr-namespace:UiPath.Salesforce.ConnectionService;assembly=UiPath.Salesforce" xmlns:usm="clr-namespace:UiPath.Salesforce.Models;assembly=UiPath.Salesforce" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_consKey" Type="InArgument(x:String)" />
+    <x:Property Name="in_consSecret" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="out_dtPolicyList" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="in_SalesforceServer" Type="InArgument(x:String)" />
+    <x:Property Name="in_SFrptID" Type="InArgument(x:String)" />
+    <x:Property Name="in_SecToken" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="in_pwd" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="in_userName" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1076,1490.66666666667</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>Sharing_Envelopes_RPA_SF_report_list_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Salesforce.Activities.Models</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>UiPath.Salesforce.ConnectionService</x:String>
+      <x:String>UiPath.Salesforce.Models</x:String>
+      <x:String>UiPath.Salesforce.Telemetry</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>UiPath.Salesforce.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>UiPath.Salesforce.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Salesforce</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Sharing_Envelopes_RPA_SF_report_list" sap:VirtualizedContainerService.HintSize="1086,1426" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence DisplayName="Query Salesforce Policies" sap:VirtualizedContainerService.HintSize="1044,1334" sap2010:WorkflowViewState.IdRef="Sequence_5">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:String" Name="txtTest" />
+        <Variable x:TypeArguments="sd:DataTable" Name="testDTPolicyList" />
+        <Variable x:TypeArguments="usam:SalesforceStatus" Name="SFstatusRpt" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:LogMessage DisplayName="Log - Salesforce Policy List" sap:VirtualizedContainerService.HintSize="1002,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Generating Salesforce policy list from report ID &quot; + in_SFrptID]" />
+      <usa:SalesforceApplicationScope CustomServer="{x:Null}" ExistingConnectionService="{x:Null}" Port="{x:Null}" ProxyPassword="{x:Null}" ProxyServer="{x:Null}" ProxyUser="{x:Null}" SalesforceConnection="{x:Null}" Sforce_Auto_Assign="{x:Null}" ConsumerKey="[in_consKey]" ConsumerSecret="[in_consSecret]" DisplayName="Salesforce Application Scope, Try 1" sap:VirtualizedContainerService.HintSize="1002,225.333333333333" sap2010:WorkflowViewState.IdRef="SalesforceApplicationScope_1" Password="[in_pwd]" ReportApiErrorAsException="False" SecurityToken="[in_SecToken]" ServerType="[in_SalesforceServer]" TelemetryEnabled="True" UseStrongDataTyping="False" Username="[in_userName]">
+        <usa:SalesforceApplicationScope.Body>
+          <ActivityAction x:TypeArguments="usc:IConnectionService">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="usc:IConnectionService" Name="SalesforceConnection" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Get Salesforce Policy List" sap:VirtualizedContainerService.HintSize="242,114" sap2010:WorkflowViewState.IdRef="Sequence_2">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <usa:ExecuteReport DisplayName="Execute Report" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="ExecuteReport_1" ReportId="[in_SFrptID]" Result="[out_dtPolicyList]" SalesforceStatus="[SFstatusRpt]" />
+            </Sequence>
+          </ActivityAction>
+        </usa:SalesforceApplicationScope.Body>
+        <usa:SalesforceApplicationScope.DesignSalesforceConnectionInfo>
+          <usm:SalesforceConnectionInfo CustomInstanceEndpoint="{x:Null}" ProxyPassword="{x:Null}" ProxyPort="{x:Null}" ProxyServer="{x:Null}" ProxyUser="{x:Null}" SforceAutoAssign="{x:Null}" ConsumerKey="3MVG98dostKihXN6ghhHF511G_bob0Uft8FocLsJyc2QTgBAvt2SllIyK2D9Naz238tJzlz31aaF2ephEk2ZU" EncryptedConsumerSecret="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA82NlTeq9jkOiU7a/iJAwsQAAAAACAAAAAAADZgAAwAAAABAAAACOc0yKoh49aHjKpv4siExNAAAAAASAAACgAAAAEAAAAAU9760Jh9VJVlva6QVk/fRIAAAARD0bX7eNumgDaDyw+mzOgODoVX7wAkgP13hRmeCSnGeN3QrITsEK74djxpSTowactInulV7dLkrtJWIeJAh34kMI43W/baRHFAAAANRLwXSVyByFzEpyXM0LIl8nsvua" EncryptedProxyUserPassword="" EncryptedSecurityToken="" ServerInstance="Test" UserName="samuel.brockmann@goosehead.com.fullsandbx">
+            <usm:SalesforceConnectionInfo.ConsumerSecret>
+              <ss:SecureString />
+            </usm:SalesforceConnectionInfo.ConsumerSecret>
+            <usm:SalesforceConnectionInfo.Password>
+              <ss:SecureString />
+            </usm:SalesforceConnectionInfo.Password>
+            <usm:SalesforceConnectionInfo.SecurityToken>
+              <ss:SecureString />
+            </usm:SalesforceConnectionInfo.SecurityToken>
+          </usm:SalesforceConnectionInfo>
+        </usa:SalesforceApplicationScope.DesignSalesforceConnectionInfo>
+      </usa:SalesforceApplicationScope>
+      <If Condition="[SFstatusRpt.Success]" DisplayName="If Try 1 succeeded" sap:VirtualizedContainerService.HintSize="1002,842" sap2010:WorkflowViewState.IdRef="If_2">
+        <If.Then>
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Successfully grabbed report with ID '&quot; + in_SFrptID + &quot;' on try 1.&quot;]" />
+        </If.Then>
+        <If.Else>
+          <Sequence DisplayName="Retry" sap:VirtualizedContainerService.HintSize="622,678" sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Delay Duration="00:01:00" sap:VirtualizedContainerService.HintSize="580,22" sap2010:WorkflowViewState.IdRef="Delay_1" />
+            <usa:SalesforceApplicationScope CustomServer="{x:Null}" ExistingConnectionService="{x:Null}" Port="{x:Null}" ProxyPassword="{x:Null}" ProxyServer="{x:Null}" ProxyUser="{x:Null}" SalesforceConnection="{x:Null}" Sforce_Auto_Assign="{x:Null}" ConsumerKey="[in_consKey]" ConsumerSecret="[in_consSecret]" DisplayName="Salesforce Application Scope" sap:VirtualizedContainerService.HintSize="580,225.333333333333" sap2010:WorkflowViewState.IdRef="SalesforceApplicationScope_2" Password="[in_pwd]" ReportApiErrorAsException="False" SecurityToken="[in_SecToken]" ServerType="[in_SalesforceServer]" TelemetryEnabled="True" UseStrongDataTyping="False" Username="[in_userName]">
+              <usa:SalesforceApplicationScope.Body>
+                <ActivityAction x:TypeArguments="usc:IConnectionService">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="usc:IConnectionService" Name="SalesforceConnection" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Get Salesforce Policy List" sap:VirtualizedContainerService.HintSize="242,114" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <usa:ExecuteReport DisplayName="Execute Report" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="ExecuteReport_2" ReportId="[in_SFrptID]" Result="[out_dtPolicyList]" SalesforceStatus="[SFstatusRpt]" />
+                  </Sequence>
+                </ActivityAction>
+              </usa:SalesforceApplicationScope.Body>
+              <usa:SalesforceApplicationScope.DesignSalesforceConnectionInfo>
+                <usm:SalesforceConnectionInfo CustomInstanceEndpoint="{x:Null}" ProxyPassword="{x:Null}" ProxyPort="{x:Null}" ProxyServer="{x:Null}" ProxyUser="{x:Null}" SforceAutoAssign="{x:Null}" ConsumerKey="3MVG98dostKihXN6ghhHF511G_bob0Uft8FocLsJyc2QTgBAvt2SllIyK2D9Naz238tJzlz31aaF2ephEk2ZU" EncryptedConsumerSecret="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA82NlTeq9jkOiU7a/iJAwsQAAAAACAAAAAAADZgAAwAAAABAAAACOc0yKoh49aHjKpv4siExNAAAAAASAAACgAAAAEAAAAAU9760Jh9VJVlva6QVk/fRIAAAARD0bX7eNumgDaDyw+mzOgODoVX7wAkgP13hRmeCSnGeN3QrITsEK74djxpSTowactInulV7dLkrtJWIeJAh34kMI43W/baRHFAAAANRLwXSVyByFzEpyXM0LIl8nsvua" EncryptedProxyUserPassword="" EncryptedSecurityToken="" ServerInstance="Test" UserName="samuel.brockmann@goosehead.com.fullsandbx">
+                  <usm:SalesforceConnectionInfo.ConsumerSecret>
+                    <ss:SecureString />
+                  </usm:SalesforceConnectionInfo.ConsumerSecret>
+                  <usm:SalesforceConnectionInfo.Password>
+                    <ss:SecureString />
+                  </usm:SalesforceConnectionInfo.Password>
+                  <usm:SalesforceConnectionInfo.SecurityToken>
+                    <ss:SecureString />
+                  </usm:SalesforceConnectionInfo.SecurityToken>
+                </usm:SalesforceConnectionInfo>
+              </usa:SalesforceApplicationScope.DesignSalesforceConnectionInfo>
+            </usa:SalesforceApplicationScope>
+            <If Condition="[Not SFstatusRpt.Success]" DisplayName="If Retry failed, throw exception" sap:VirtualizedContainerService.HintSize="580,258.666666666667" sap2010:WorkflowViewState.IdRef="If_1">
+              <If.Then>
+                <Throw Exception="[New SystemException(&quot;Unable to query Salesforce report '&quot; + in_SFrptID + &quot;' for policy list. Error message: &quot; + SFstatusRpt.Message)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+              </If.Then>
+              <If.Else>
+                <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Successfully grabbed report with ID '&quot; + in_SFrptID + &quot;' on Retry.&quot;]" />
+              </If.Else>
+            </If>
+          </Sequence>
+        </If.Else>
+      </If>
+    </Sequence>
+  </Sequence>
+</Activity>
